@@ -19,7 +19,6 @@ This example returns detailed information for the Receive connectors on all Exch
 
 Change Log:
 V1.00, 03/27/2019 - Initial version
-
 #>
 
 Param(	
