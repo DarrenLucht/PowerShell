@@ -3,8 +3,6 @@
 Get-ExchangeReceiveConnector.ps1
 
 .DESCRIPTION 
-This cmdlet is available only in on-premises Exchange.
-
 Use the Get-ExchangeReceiveConnector to view Receive connectors on Mailbox servers. 
 Receive connectors listen for inbound SMTP connections on the Exchange server.
 
