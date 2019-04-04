@@ -1,13 +1,14 @@
 <#
 .SYNOPSIS
-Set-ExchangeOfflineAddressBook.ps1
+Set-Exchange2010-OutlookAnywhere.ps1
 
 .DESCRIPTION 
-This script modifies the OAB named Default Offline Address Book to allow any 
-virtual directory in the organization to accept requests to download the OAB.
+Configure Outlook Anywhere on your Exchange 2010 servers for coexistence with Exchange 2016 servers.
+
+Execute On Exchange 2010 server
 
 .EXAMPLE
-./Set-ExchangeOfflineAddressBook.ps1
+./Set-Exchange2010-OutlookAnywhere.ps1
 
 .NOTES
 Written by: Darren Lucht
@@ -42,9 +43,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Change Log:
-V1.00, 03/27/2019 - Initial version
+V1.00, 03/28/2019 - Initial version
 #>
-
 
 #Add Exchange snapin if not already loaded in the PowerShell session
 if (Test-Path $env:ExchangeInstallPath\bin\RemoteExchange.ps1)
@@ -58,10 +58,18 @@ else
     EXIT
 }
 
-Clear-Host
+Start-Transcript Set-Exchange2010-OutlookAnywhere.txt
 
-Start-Transcript Set-ExchangeOfflineAddressBook.txt
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
-Get-OfflineAddressBook | Where-Object {$_.ExchangeVersion.ExchangeBuild.Major -Eq 15} | Set-OfflineAddressBook -Identity "Default Offline Address List (Ex2013)" -GlobalWebDistributionEnabled $true -VirtualDirectories $null 
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
+# External host name of your Exchange 2016 Server 
+$Exchange2016 = "mail.example.com"
+
+# Configure Exchange 2010 servers to accept connections from Exchange 2016 servers.
+Get-ExchangeServer | Where-Object {($_.AdminDisplayVersion -Like "Version 14*") -And ($_.ServerRole -Like "*ClientAccess*")} | Get-ClientAccessServer | Where-Object {$_.OutlookAnywhereEnabled -Eq $True} | ForEach-Object {Set-OutlookAnywhere "$_\RPC (Default Web Site)" -ClientAuthenticationMethod Basic -SSLOffloading $False -ExternalHostName $Exchange2016 -IISAuthenticationMethods NTLM, Basic}
+
+# Enable Outlook Anywhere and configure Exchange 2010 to accept connections from Exchange 2016 servers.
+Get-ExchangeServer | Where-Object {($_.AdminDisplayVersion -Like "Version 14*") -And ($_.ServerRole -Like "*ClientAccess*")} | Get-ClientAccessServer | Where-Object {$_.OutlookAnywhereEnabled -Eq $False} | Enable-OutlookAnywhere -ClientAuthenticationMethod Basic -SSLOffloading $False -ExternalHostName $Exchange2016 -IISAuthenticationMethods NTLM, Basic
+
+# Verify that Outlook Anywhere on your Exchange 2010 servers accept connections redirected from Exchange 2016
+Get-ExchangeServer | Where-Object {($_.AdminDisplayVersion -Like "Version 14*") -And ($_.ServerRole -Like "*ClientAccess*")} | Get-OutlookAnywhere | Format-Table Server, ClientAuthenticationMethod, IISAuthenticationMethods, SSLOffloading, ExternalHostname -Auto
+
 Stop-Transcript

@@ -22,6 +22,9 @@ Written by: Darren Lucht
 
 * Github:	https://github.com/DarrenLucht/PowerShell/tree/master/Exchange
 
+THIS CODE IS MADE AVAILABLE AS IS, WITHOUT WARRANTY OF ANY KIND. THE ENTIRE 
+RISK OF THE USE OR THE RESULTS FROM THE USE OF THIS CODE REMAINS WITH THE USER.
+
 License:
 
 The MIT License (MIT)
@@ -70,7 +73,7 @@ else
 
 If ($Server) {
 	Start-Transcript Get-ExchangeReceiveConnector-$Server.txt
-	$ERC = @(Get-ReceiveConnector -Server $Server | Select-Object Server, Fqdn, Enabled, Name, Identity, TransportRole, Bindings, AuthMechanism, RemoteIPRanges, PermissionGroups, WhenCreated, WhenChanged, OriginatingServer | Format-List)
+	$ERC = @(Get-ReceiveConnector -Server $Server | Select-Object Server, Fqdn, Enabled, Name, Identity, TransportRole, Bindings, AuthMechanism, RemoteIPRanges, PermissionGroups, WhenCreated, WhenChanged, OriginatingServer)
 	$ERC
 	Stop-Transcript
 }
@@ -78,7 +81,7 @@ If ($Server) {
 
 Else {
 	Start-Transcript Get-ExchangeReceiveConnector.txt
-	$ERC = @(Get-ReceiveConnector | Select-Object Server, Fqdn, Enabled, Name, Identity, TransportRole, Bindings, AuthMechanism, RemoteIPRanges, PermissionGroups, WhenCreated, WhenChanged, OriginatingServer | Format-List)
+	$ERC = @(Get-ReceiveConnector | Select-Object Server, Fqdn, Enabled, Name, Identity, TransportRole, Bindings, AuthMechanism, RemoteIPRanges, PermissionGroups, WhenCreated, WhenChanged, OriginatingServer)
 	$ERC
 	Stop-Transcript
 }

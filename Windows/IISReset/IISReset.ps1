@@ -1,13 +1,14 @@
 <#
 .SYNOPSIS
-Set-ExchangeOfflineAddressBook.ps1
+IISReset.ps1
 
 .DESCRIPTION 
-This script modifies the OAB named Default Offline Address Book to allow any 
-virtual directory in the organization to accept requests to download the OAB.
+Reset IIS Service
+
+Copy the IISReset folder to your harddrive, then create a shortcut to IISReset.bat on your desktop for convenient execution
 
 .EXAMPLE
-./Set-ExchangeOfflineAddressBook.ps1
+./IISReset.ps1
 
 .NOTES
 Written by: Darren Lucht
@@ -42,26 +43,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Change Log:
-V1.00, 03/27/2019 - Initial version
+V1.00, 04/01/2019 - Initial version
 #>
 
+Write-Host ""
+Write-Host ""
+Write-Host " Executing IISReset...           " -BackgroundColor Red -ForegroundColor White
+Write-Host ""
 
-#Add Exchange snapin if not already loaded in the PowerShell session
-if (Test-Path $env:ExchangeInstallPath\bin\RemoteExchange.ps1)
-{
-	. $env:ExchangeInstallPath\bin\RemoteExchange.ps1
-	Connect-ExchangeServer -auto -AllowClobber
-}
-else
-{
-    Write-Warning "Exchange Server management tools are not installed on this computer."
-    EXIT
-}
-
-Clear-Host
-
-Start-Transcript Set-ExchangeOfflineAddressBook.txt
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
-Get-OfflineAddressBook | Where-Object {$_.ExchangeVersion.ExchangeBuild.Major -Eq 15} | Set-OfflineAddressBook -Identity "Default Offline Address List (Ex2013)" -GlobalWebDistributionEnabled $true -VirtualDirectories $null 
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
-Stop-Transcript
+IISReset

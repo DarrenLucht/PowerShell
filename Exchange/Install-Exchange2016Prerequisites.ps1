@@ -1,13 +1,12 @@
 <#
 .SYNOPSIS
-Set-ExchangeOfflineAddressBook.ps1
+Install-Exchange2016Prerequisites.ps1
 
 .DESCRIPTION 
-This script modifies the OAB named Default Offline Address Book to allow any 
-virtual directory in the organization to accept requests to download the OAB.
+Installation of Exchange Server 2016 Windows Feature Prerequisites.
 
 .EXAMPLE
-./Set-ExchangeOfflineAddressBook.ps1
+./Install-Exchange2016Prerequisites.ps1
 
 .NOTES
 Written by: Darren Lucht
@@ -46,22 +45,8 @@ V1.00, 03/27/2019 - Initial version
 #>
 
 
-#Add Exchange snapin if not already loaded in the PowerShell session
-if (Test-Path $env:ExchangeInstallPath\bin\RemoteExchange.ps1)
-{
-	. $env:ExchangeInstallPath\bin\RemoteExchange.ps1
-	Connect-ExchangeServer -auto -AllowClobber
-}
-else
-{
-    Write-Warning "Exchange Server management tools are not installed on this computer."
-    EXIT
-}
+Start-Transcript Install-Exchange2016Prerequisites.txt
 
-Clear-Host
+Install-WindowsFeature NET-Framework-45-Features, RPC-over-HTTP-proxy, RSAT-Clustering, RSAT-Clustering-CmdInterface, RSAT-Clustering-Mgmt, RSAT-Clustering-PowerShell, Web-Mgmt-Console, WAS-Process-Model, Web-Asp-Net45, Web-Basic-Auth, Web-Client-Auth, Web-Digest-Auth, Web-Dir-Browsing, Web-Dyn-Compression, Web-Http-Errors, Web-Http-Logging, Web-Http-Redirect, Web-Http-Tracing, Web-ISAPI-Ext, Web-ISAPI-Filter, Web-Lgcy-Mgmt-Console, Web-Metabase, Web-Mgmt-Console, Web-Mgmt-Service, Web-Net-Ext45, Web-Request-Monitor, Web-Server, Web-Stat-Compression, Web-Static-Content, Web-Windows-Auth, Web-WMI, Windows-Identity-Foundation, RSAT-ADDS
 
-Start-Transcript Set-ExchangeOfflineAddressBook.txt
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
-Get-OfflineAddressBook | Where-Object {$_.ExchangeVersion.ExchangeBuild.Major -Eq 15} | Set-OfflineAddressBook -Identity "Default Offline Address List (Ex2013)" -GlobalWebDistributionEnabled $true -VirtualDirectories $null 
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
 Stop-Transcript

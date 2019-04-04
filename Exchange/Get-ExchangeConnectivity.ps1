@@ -1,13 +1,12 @@
 <#
 .SYNOPSIS
-Set-ExchangeOfflineAddressBook.ps1
+Get-ExchangeConnectivity.ps1
 
 .DESCRIPTION 
-This script modifies the OAB named Default Offline Address Book to allow any 
-virtual directory in the organization to accept requests to download the OAB.
+Use the Get-ExchangeConnectivity to view Exchange Server virtual directories and certificate information.
 
 .EXAMPLE
-./Set-ExchangeOfflineAddressBook.ps1
+./Get-ExchangeConnectivity.ps1
 
 .NOTES
 Written by: Darren Lucht
@@ -45,7 +44,6 @@ Change Log:
 V1.00, 03/27/2019 - Initial version
 #>
 
-
 #Add Exchange snapin if not already loaded in the PowerShell session
 if (Test-Path $env:ExchangeInstallPath\bin\RemoteExchange.ps1)
 {
@@ -58,10 +56,17 @@ else
     EXIT
 }
 
-Clear-Host
+Start-Transcript Get-ExchangeConnectivity.txt
 
-Start-Transcript Set-ExchangeOfflineAddressBook.txt
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
-Get-OfflineAddressBook | Where-Object {$_.ExchangeVersion.ExchangeBuild.Major -Eq 15} | Set-OfflineAddressBook -Identity "Default Offline Address List (Ex2013)" -GlobalWebDistributionEnabled $true -VirtualDirectories $null 
-Get-OfflineAddressBook | Format-List Name, AddressLists, GeneratingMailbox, IsDefault, VirtualDirectories, GlobalWebDistributionEnabled
+Get-OabVirtualDirectory | Format-List Server, Name, ExternalURL, InternalURL, *auth*
+Get-WebServicesVirtualDirectory | Format-List Server, Name,ExternalURL, InternalURL, *auth*
+Get-EcpVirtualDirectory | Format-List Server, Name, ExternalURL, InternalURL, *auth*
+Get-OutlookAnywhere | Format-List Server, Name, *hostname*, *auth*
+Get-OwaVirtualDirectory | Format-List Server, Name, ExternalURL, InternalURL, *auth*
+Get-MapiVirtualDirectory | Format-List Server, Name,ExternalURL,InternalURL, *auth*
+Get-OutlookProvider | Format-List
+Get-ClientAccessServer | Format-List Name,OutlookAnywhereEnabled, AutodiscoverServiceInternalUri
+Get-ExchangeCertificate | Format-List Services, CertificateDomains
+Get-OutlookAnywhere | Format-List Name, *hostname*, *auth*
+
 Stop-Transcript
