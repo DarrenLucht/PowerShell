@@ -1,4 +1,4 @@
-# Autotask RMM Avast Device Monitor
+# (Autotask) datto RMM Avast Device Monitor
 
 Currently datto RMM is able to detect Avast Cloudcare for client workstations and AEM Reports will indicate which devices have it installed, and if they are up to date or not.
 
