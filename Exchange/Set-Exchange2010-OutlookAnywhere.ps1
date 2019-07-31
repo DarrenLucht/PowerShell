@@ -13,10 +13,7 @@ Execute On Exchange 2010 server
 .NOTES
 Written by: Darren Lucht
 
-* Github:	https://github.com/DarrenLucht/PowerShell/tree/master/Exchange
-
-THIS CODE IS MADE AVAILABLE AS IS, WITHOUT WARRANTY OF ANY KIND. THE ENTIRE 
-RISK OF THE USE OR THE RESULTS FROM THE USE OF THIS CODE REMAINS WITH THE USER.
+* Github:  https://github.com/DarrenLucht/PowerShell/tree/master/Exchange
 
 License:
 
