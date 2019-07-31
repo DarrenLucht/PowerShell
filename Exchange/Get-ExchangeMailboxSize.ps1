@@ -14,7 +14,7 @@ Use Get-ExchangeMailboxSize to view Exchange Server Mailbox Sizes and Statistics
 .NOTES
 Written by: Darren Lucht
 
-* Github:	https://github.com/DarrenLucht/PowerShell/tree/master/Exchange
+* Github:  https://github.com/DarrenLucht/PowerShell/tree/master/Exchange
 
 License:
 
