@@ -11,7 +11,7 @@ Get-NETFrameworkVersion.ps1
 .NOTES
 Written by: Darren Lucht
 
-* Github:	https://github.com/DarrenLucht/PowerShell/tree/master/Exchange
+* Github:  https://github.com/DarrenLucht/PowerShell/tree/master/Exchange
 
 License:
 
@@ -43,20 +43,20 @@ V1.00, 03/27/2019 - Initial version
 The following table lists the release keys on individual operating systems for .NET Framework 4.5 and later versions.
 
 .NET Framework 4.5	    378389  All Windows operating systems            
-.NET Framework 4.5.1	378675  On Windows 8.1 and Windows Server 2012 R2
+.NET Framework 4.5.1	  378675  On Windows 8.1 and Windows Server 2012 R2
                         378758  On all other Windows operating systems
-.NET Framework 4.5.2	379893  All Windows operating systems
+.NET Framework 4.5.2	  379893  All Windows operating systems
 .NET Framework 4.6	    393295  On Windows 10
                         393297  On all other Windows operating systems
-.NET Framework 4.6.1	394254  On Windows 10 November Update systems
+.NET Framework 4.6.1	  394254  On Windows 10 November Update systems
                         394271  On all other Windows operating systems
-.NET Framework 4.6.2	394802  On Windows 10 Anniversary Update and Windows Server 2016
+.NET Framework 4.6.2	  394802  On Windows 10 Anniversary Update and Windows Server 2016
                         394806  On all other Windows operating systems
 .NET Framework 4.7	    460798  On Windows 10 Creators Update
                         460805  On all other Windows operating systems
-.NET Framework 4.7.1	461308  On Windows 10 Fall Creators Update and Windows Server, version 1709
+.NET Framework 4.7.1	  461308  On Windows 10 Fall Creators Update and Windows Server, version 1709
                         461310  On all other Windows operating systems
-.NET Framework 4.7.2	461808  On Windows 10 April 2018 Update and Windows Server, version 1803
+.NET Framework 4.7.2	  461808  On Windows 10 April 2018 Update and Windows Server, version 1803
                         461814  On all other Windows operating systems
 #>
 
