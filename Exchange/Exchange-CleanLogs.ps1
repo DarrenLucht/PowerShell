@@ -12,6 +12,8 @@ Settings
 Example to run manually: ./Exchange-CleanLogs.ps1
 #>
 
+Start-Transcript Exchange-CleanLogs.txt
+
 Set-Executionpolicy -Scope CurrentUser RemoteSigned
 
 #Number of days to retain logs
@@ -48,3 +50,5 @@ CleanLogfiles($IISLogPath)
 CleanLogfiles($ExchangeLoggingPath)
 CleanLogfiles($ETLLoggingPath)
 CleanLogfiles($ETLLoggingPath2)
+
+Stop-Transcript
